@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord — Protótipo de Avaliação</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="servers">
+    <button class="server active" title="Mensagens diretas" data-action="dm">◈</button>
+    <div class="separator"></div>
+    <button class="server" title="Comunidade Gamer" data-server="Comunidade Gamer">🎮</button>
+    <button class="server" title="Grupo de Estudos" data-server="Grupo de Estudos">📚</button>
+    <button class="server" title="Clube dos Jogos" data-server="Clube dos Jogos">🕹️</button>
+    <button class="server add" title="Adicionar servidor" data-action="add-server">+</button>
+  </aside>
+
+  <aside class="sidebar">
+    <div class="side-head" id="side-title">Mensagens diretas <span>⌄</span></div>
+    <div class="side-body" id="side-body"></div>
+    <div class="user-bar">
+      <div class="avatar me">E</div>
+      <div class="user-info"><b>Erick</b><small>Online</small></div>
+      <button class="gear" title="Configurações" data-action="settings">⚙</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <span id="top-icon">◉</span><strong id="top-title">Amigos</strong>
+      <small id="top-sub">Discord • Protótipo</small>
+    </header>
+    <section id="content" class="content"></section>
+  </main>
+  <div id="toast" class="toast" role="status"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
