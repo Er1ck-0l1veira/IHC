@@ -199,4 +199,5 @@ mark{background:#efb03466;color:inherit;border-radius:2px;padding:0 1px}
   .side{width:min(248px,calc(100vw - 112px))}
   .toast{white-space:normal;width:max-content;max-width:80%;text-align:center}
 }
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
