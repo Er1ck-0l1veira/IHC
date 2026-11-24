@@ -100,7 +100,7 @@ function renderRail(){
   var h='<button class="srv home" data-home="1" title="Mensagens diretas" aria-label="Mensagens diretas">'+svg(IC.chat,24,2)+'</button><div class="sep"></div>';
   S.forEach(function(s){
     var un=0;s.cats.forEach(function(c){c.ch.forEach(function(x){if(x.un)un++})});
-    h+='<button class="srv'+(s.id===st.srv?' on':'')+'" style="--c:'+s.c+'" data-srv="'+s.id+'" title="'+esc(s.n)+'" aria-label="'+esc(s.n)+'">'+s.short+(un&&s.id!==st.srv?'<span class="badge">'+un+'</span>':'')+'</button>';
+    h+='<button class="srv'+(s.id===st.srv?' on':(un?' unread':''))+'" style="--c:'+s.c+'" data-srv="'+s.id+'" title="'+esc(s.n)+'" aria-label="'+esc(s.n)+'">'+s.short+'</button>';
   });
   h+='<div class="sep"></div><button class="srv add" data-fake="Criar um servidor" title="Adicionar servidor" aria-label="Adicionar servidor">'+svg(IC.plus,24,2)+'</button>';
   $('rail').innerHTML=h;
