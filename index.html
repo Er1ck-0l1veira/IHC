@@ -1,41 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discord — Protótipo de Avaliação</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Protótipo Chat de Comunidades</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
-  <aside class="servers">
-    <button class="server active" title="Mensagens diretas" data-action="dm">◈</button>
-    <div class="separator"></div>
-    <button class="server" title="Comunidade Gamer" data-server="Comunidade Gamer">🎮</button>
-    <button class="server" title="Grupo de Estudos" data-server="Grupo de Estudos">📚</button>
-    <button class="server" title="Clube dos Jogos" data-server="Clube dos Jogos">🕹️</button>
-    <button class="server add" title="Adicionar servidor" data-action="add-server">+</button>
-  </aside>
-
-  <aside class="sidebar">
-    <div class="side-head" id="side-title">Mensagens diretas <span>⌄</span></div>
-    <div class="side-body" id="side-body"></div>
-    <div class="user-bar">
-      <div class="avatar me">E</div>
-      <div class="user-info"><b>Erick</b><small>Online</small></div>
-      <button class="gear" title="Configurações" data-action="settings">⚙</button>
-    </div>
-  </aside>
-
+<div class="app" id="app">
+  <div class="nav" id="nav">
+    <nav class="rail" id="rail" aria-label="Servidores"></nav>
+    <aside class="side">
+      <div class="side-h" id="srvName" role="button" tabindex="0"></div>
+      <div class="gs-wrap"><button class="gfield" id="gsBtn" type="button" title="Buscar em todos os servidores (Ctrl+K)"><span>Buscar em todos os servidores</span></button></div>
+      <div class="chlist" id="chlist"></div>
+      <div class="voice" id="voicePanel" hidden></div>
+      <div class="me">
+        <div class="who" role="button" tabindex="0" id="meBtn"></div>
+        <button class="ibtn" id="muteBtn" title="Silenciar microfone" aria-label="Silenciar microfone"></button>
+        <button class="ibtn" id="deafBtn" title="Desativar áudio" aria-label="Desativar áudio"></button>
+        <button class="ibtn" data-fake="Configurações de usuário" title="Configurações" aria-label="Configurações"></button>
+      </div>
+    </aside>
+  </div>
+  <div class="scrim" id="scrim"></div>
   <main class="main">
-    <header class="topbar">
-      <span id="top-icon">◉</span><strong id="top-title">Amigos</strong>
-      <small id="top-sub">Discord • Protótipo</small>
+    <header class="top">
+      <button class="ibtn menu-btn" id="menuBtn" aria-label="Abrir servidores e canais"></button>
+      <span id="topIcon"></span><span class="nm" id="topName"></span>
+      <span class="tp" id="topTopic"></span>
+      <div class="tools">
+        <button class="ibtn" data-fake="Notificações do canal" aria-label="Notificações" id="icBell"></button>
+        <button class="ibtn" data-fake="Mensagens fixadas" aria-label="Fixadas" id="icPin"></button>
+        <button class="ibtn" id="membersBtn" aria-label="Lista de membros" title="Lista de membros"></button>
+        <label class="search"><input id="searchIn" placeholder="Buscar no servidor" aria-label="Buscar mensagens neste servidor" autocomplete="off"><span id="icSearch"></span></label>
+      </div>
     </header>
-    <section id="content" class="content"></section>
+    <div class="body">
+      <section class="chat">
+        <div class="msgs" id="msgs"></div>
+        <div class="typing" id="typing"></div>
+        <div class="composer" id="composer">
+          <div class="replying" id="replying" hidden></div>
+          <div class="box">
+            <button class="ibtn" data-fake="Enviar arquivo" aria-label="Anexar" id="icPlus"></button>
+            <input id="msgIn" autocomplete="off" aria-label="Mensagem">
+            <button class="ibtn" data-fake="Escolher GIF" aria-label="GIF" id="icGif"></button>
+            <button class="ibtn" id="emojiBtn" aria-label="Emojis" title="Emojis"></button>
+            <button class="ibtn" id="sendBtn" aria-label="Enviar" title="Enviar" style="color:var(--accent-2)"></button>
+          </div>
+          <div class="pop" id="pop" hidden></div>
+        </div>
+      </section>
+      <aside class="members" id="members" aria-label="Membros"></aside>
+      <aside class="sres" id="sres" hidden aria-label="Resultados da busca no servidor">
+        <div class="sres-h"><b id="sresTitle"></b><button class="ibtn" id="sresClose" type="button" aria-label="Fechar busca" title="Fechar busca"></button></div>
+        <div class="chips"><button class="chip on" type="button" data-scope="server">Neste servidor</button><button class="chip" type="button" data-scope="channel">Neste canal</button></div>
+        <div class="sres-b" id="sresBody"></div>
+      </aside>
+    </div>
   </main>
-  <div id="toast" class="toast" role="status"></div>
+  <div class="gs" id="gs" hidden>
+    <div class="gs-box" role="dialog" aria-modal="true" aria-label="Pesquisa em todos os servidores">
+      <div class="gs-in"><span id="gsIcon"></span><input id="gsIn" placeholder="Buscar servidores, canais e mensagens" autocomplete="off" aria-label="Pesquisa em todos os servidores"><button class="ibtn" id="gsClose" type="button" aria-label="Fechar pesquisa" title="Fechar"></button></div>
+      <div class="gs-list" id="gsList" role="listbox"></div>
+      <div class="gs-foot"><span>↑ ↓ navegar</span><span>Enter abrir</span><span>Esc fechar</span></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
