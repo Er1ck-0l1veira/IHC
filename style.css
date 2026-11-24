@@ -27,6 +27,7 @@ svg{display:block}
 .srv.on{background:var(--c,var(--accent))}
 .srv:hover:not(.on){background:var(--c,var(--accent))}
 .srv::before{content:"";position:absolute;left:-12px;top:50%;width:4px;height:8px;border-radius:0 4px 4px 0;background:#fff;transform:translateY(-50%) scaleY(.4);opacity:0;transition:.15s}
+.srv.unread::before{opacity:1;height:8px}
 .srv:hover::before{opacity:1;height:20px}
 .srv.on::before{opacity:1;height:40px}
 .srv .badge{position:absolute;right:-4px;bottom:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);font-size:11px;display:grid;place-items:center;border:3px solid var(--bg-rail);box-sizing:content-box}
